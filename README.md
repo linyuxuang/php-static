@@ -81,7 +81,38 @@ PHP单例模式，就是一个对象只被生成一次，但该对象可以被�
                                 $db = Database::getInstace();
        
        
-       
+
+
+                                   再来一个例子 
+                                       class Msqs{
+                                           protected 	static $name="99999";
+                                           private function __construct(){
+                                             echo '连接数据库成功';	
+                                           }
+                                          static  function setData($sql){
+                                            self::$name=$sql;
+                                           } 
+
+                                           static function getData(){
+                                            if(self::$name){
+                                             return self::$name;
+                                            }else{
+                                            self::$name=new self;
+                                                return self::$name;	
+                                            }
+                                           }
+
+                                          }
+                                       修改静态成员
+                                         Msqs::setData("蔺雨轩");
+
+                                        $s=  Msqs::getData();
+                                        echo $s;     //蔺雨轩
+
+                              
+                              
+                              
+   
  使用单例模式的好处是，当你在其他地方也要使用到这个类，比如上面的数据库类。
  那么你可以在其它地方直接调用 Database::getInstace(），而且该实例只会被生成一次，不会被重复生成，所以不会浪费系统资源。
 
